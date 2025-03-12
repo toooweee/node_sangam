@@ -8,15 +8,17 @@ function subtract(a, b) {
 
 function divide(a, b) {
   if (b === 0) {
-    throw new Error('Divide by 0 is not allowed')
+    throw new Error("Divide by 0 is not allowed");
   }
 
-  return a / b
+  return a / b;
 }
 
 module.exports = {
-  add, subtract, divide
-}
+  add,
+  divide,
+  subtract,
+};
 
 /**
  * Затем ты присваиваешь module.exports объект, у которого есть свойства add, subtract и divide.
