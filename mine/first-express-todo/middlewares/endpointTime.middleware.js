@@ -1,6 +1,6 @@
 const pointTimeMiddleware = (req, res, next) => {
   const time = new Date().toISOString();
-  console.log(`Request: ${req.url}, Time: ${time}`);
+  console.log(`Request: ${req.method} ${req.url}, Time: ${time}`);
   next();
 };
 

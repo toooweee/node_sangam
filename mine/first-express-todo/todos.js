@@ -1,37 +1,35 @@
+const mongoose = require("mongoose");
+
+// Определяем схему
+const todoSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: String,
+  isDone: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
+});
+
+// Создаем модель один раз
+const todoModel = mongoose.model("todos", todoSchema);
+
 class Todo {
-  lastTodoId = 0;
-  todos = [];
-
-  getTodo(id) {
-    return this.todos.find((todo) => todo.id === id);
+  async getTodo(id) {
+    return todoModel.findById(id);
   }
 
-  getAllTodos() {
-    return this.todos;
+  async getAllTodos() {
+    return todoModel.find();
   }
 
-  createTodo(todo) {
-    this.todos.push({
-      id: ++this.lastTodoId,
-      ...todo,
-    });
-
-    return todo;
+  async createTodo(todo) {
+    return todoModel.create(todo);
   }
 
-  updateTodo(id, updatedTodo) {
-    const todo = this.getTodo(id);
+  async updateTodo(id, updatedTodo) {
+    return todoModel.findByIdAndUpdate(id, updatedTodo, { new: true });
+  }
 
-    if (!todo) {
-      throw new Error("Todo not found");
-    }
-
-    this.todos[id] = {
-      id,
-      ...updatedTodo,
-    };
-
-    return this.getTodo(id);
+  async deleteTodo(id) {
+    return todoModel.findByIdAndDelete(id);
   }
 }
 
