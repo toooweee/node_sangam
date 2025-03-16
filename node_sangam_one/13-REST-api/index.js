@@ -9,7 +9,7 @@ const app = express();
 /**
  * Если клиент отправляет POST-запрос с телом {"title": "New Book"},
  * то после app.use(express.json()); вы сможете получить эти данные в маршруте через req.body.title.
- * Без этого middleware req.body будет undefined.
+ * Без этого middlewares req.body будет undefined.
  */
 app.use(express.json());
 
@@ -37,7 +37,7 @@ app.post("/books", (req, res) => {
   };
 
   if (!req.body.title) {
-    return res.status(400).json({message: "Please enter title"});
+    return res.status(400).json({ message: "Please enter title" });
   }
 
   books.push(newBook);
@@ -75,22 +75,22 @@ app.put("/books/:id", (req, res) => {
   const updatedBook = req.body;
 
   if (!updatedBook) {
-    res.status(400).json({message: "Please enter book"});
+    res.status(400).json({ message: "Please enter book" });
   }
 
   const bookIndex = books.findIndex((book) => book.id === id);
 
   if (bookIndex === -1) {
-    res.status(404).json({message: "Book not found"});
+    res.status(404).json({ message: "Book not found" });
   }
 
   books[bookIndex] = {
     id,
     ...updatedBook,
-  }
+  };
 
-  res.status(200).json(updatedBook)
-})
+  res.status(200).json(updatedBook);
+});
 
 app.delete("/books/:id", (req, res) => {
   const id = +req.params.id;
@@ -98,12 +98,12 @@ app.delete("/books/:id", (req, res) => {
   const bookIndex = books.findIndex((book) => book.id === id);
 
   if (bookIndex === -1) {
-    res.status(404).json({message: "Book not found"});
+    res.status(404).json({ message: "Book not found" });
   }
 
   books.splice(bookIndex, 1);
   res.status(200).json(books);
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT} `);
