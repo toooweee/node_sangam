@@ -1,13 +1,12 @@
-const userRepository = require("../models/user.model.js");
-const createUserDto = require("../dto/user/createUser.dto.js");
+const userRepository = require("../models/user.js");
+const createUserDto = require("../dto/createUser.dto.js");
 
 class User {
   async getAll(req, res, next) {
     try {
-      const users = await userRepository
-        .find()
-        .select("email name createdAt updatedAt");
-      return res.status(200).json(users);
+      res
+        .status(200)
+        .json(await userRepository.find().select("email password createdAt"));
     } catch (e) {
       next(e);
     }
@@ -17,7 +16,7 @@ class User {
     const { error } = createUserDto.validate(req.body);
 
     if (error) {
-      res.status(400).json({ message: error.details[0].message });
+      return res.status(404).json({ message: error.details[0].message });
     }
 
     const { email, password, name } = req.body;
@@ -29,17 +28,15 @@ class User {
         return res.status(409).json({ message: "User already exists" });
       }
 
-      const createdUser = await userRepository.create({
-        email,
-        password,
-        name,
-      });
-
-      return res.status(200).json(createdUser);
+      return res
+        .status(201)
+        .json(await userRepository.create({ email, password, name }));
     } catch (e) {
       next(e);
     }
   }
+
+  private;
 }
 
 module.exports = new User();

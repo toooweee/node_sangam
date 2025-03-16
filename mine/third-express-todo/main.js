@@ -1,22 +1,22 @@
 require("dotenv").config();
 const express = require("express");
-const connectToDatabase = require("./database/database");
-const exceptionHandler = require("./middleware/exception.handler");
-const userRoutes = require("./routes/user.route.js");
+const connectToDatabase = require("./database/database.js");
+const userRouter = require("./routes/user.js");
+const { errorHandler } = require("./utils/errorHandler");
 
 async function main() {
-  const port = process.env.PORT || 5000;
   const app = express();
-
-  app.use(express.json());
-  app.use(exceptionHandler);
-
-  app.use("/api", userRoutes);
+  const port = process.env.PORT || 5000;
 
   await connectToDatabase();
 
+  app.use(express.json());
+  app.use(errorHandler);
+
+  app.use("/api", userRouter);
+
   await app.listen(port);
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is listening at http://localhost:${port}`);
 }
 
 main();
