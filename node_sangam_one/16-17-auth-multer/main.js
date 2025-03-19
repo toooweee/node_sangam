@@ -4,6 +4,7 @@ const connectToDatabase = require("./database/database");
 const authRouter = require("./routes/auth.js");
 const homeRouter = require("./routes/home.js");
 const adminRouter = require("./routes/admin.js");
+const uploadRouter = require("./routes/image.js");
 const errorHandler = require("./utils/error.handler.js");
 
 async function main() {
@@ -17,6 +18,7 @@ async function main() {
   app.use("/api/auth", authRouter);
   app.use("/api/home", homeRouter);
   app.use("/api/admin", adminRouter);
+  app.use("/api", uploadRouter);
   app.use(errorHandler);
 
   await app.listen(port);
