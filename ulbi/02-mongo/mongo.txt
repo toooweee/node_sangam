@@ -1,0 +1,14 @@
+db.users.insertMany([
+    {name: "Artyom", age: 18}, { name: "Islam", age: 18}, { name: "Orkhan", age: 25}
+])
+
+db.users.insertMany([
+    {name: "Artyom", age: 18}, { name: "Islam", age: 18}, { name: "Orkhan", age: 25}
+])
+
+db.users.find({ age: {$lt: 30}})
+db.users.find({ age: {$gt: 30}})
+db.users.find().sort({age: 1})
+db.users.find().sort({age: 1}).limit(4)
+
+db.users.findOne({ _id: "67dd4fe16df6c473e8f49980"})
