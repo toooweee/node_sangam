@@ -29,6 +29,18 @@ class Image {
       next(e);
     }
   };
+
+  fetchImages = async (req, res, next) => {
+    try {
+      const images = await imageRepository.find({});
+
+      if (images) {
+        return res.status(200).json(images);
+      }
+    } catch (e) {
+      next(e);
+    }
+  };
 }
 
 module.exports = new Image();

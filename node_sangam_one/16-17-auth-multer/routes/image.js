@@ -12,6 +12,6 @@ router.post(
   imageController.uploadImage,
 );
 
-router.get("/image", authMiddleware);
+router.get("/image", authMiddleware, imageController.fetchImages);
 
 module.exports = router;

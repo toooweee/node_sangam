@@ -12,3 +12,13 @@ db.users.find().sort({age: 1})
 db.users.find().sort({age: 1}).limit(4)
 
 db.users.findOne({ _id: "67dd4fe16df6c473e8f49980"})
+
+db.users.update(
+    { _id: "67dd4fe16df6c473e8f49980" },
+    { $set:
+        {
+            name: "Ilon Mask",
+            age: 50
+        }
+    }
+)
