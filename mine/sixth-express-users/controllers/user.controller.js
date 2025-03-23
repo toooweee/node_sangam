@@ -18,6 +18,16 @@ class UserController {
       next(e);
     }
   };
+
+  getUser = async (req, res, next) => {
+    try {
+      console.log(req.params.idOrEmail);
+      const user = await userService.findOne(req.params.idOrEmail);
+      return res.status(200).json(user);
+    } catch (e) {
+      next(e);
+    }
+  };
 }
 
 export default new UserController();

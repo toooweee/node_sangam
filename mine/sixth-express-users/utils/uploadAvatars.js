@@ -11,8 +11,8 @@ const uploadAvatars = async () => {
   const avatarsPath = path.join(import.meta.dirname, "../uploads/avatars");
 
   try {
-    const files = await fs.readdir(avatarsPath);
-    for (const avatar of files) {
+    const avatars = await fs.readdir(avatarsPath);
+    for (const avatar of avatars) {
       const relativePath = `uploads/${avatar}`;
       await avatarRepository.updateOne(
         {

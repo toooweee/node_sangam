@@ -24,7 +24,19 @@ class UserService {
   };
 
   findAll = async () => {
-    return await userRepository.find().populate("avatar");
+    return userRepository.find();
+  };
+
+  findOne = async (usernameOrId) => {
+    const user = await userRepository.findOne({
+      $or: [{ username: usernameOrId }, { _id: usernameOrId }],
+    });
+
+    if (!user) {
+      throw new ErrorHandler(404, "User not found");
+    }
+
+    return user;
   };
 }
 

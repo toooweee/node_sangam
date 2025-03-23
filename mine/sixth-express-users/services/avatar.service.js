@@ -1,6 +1,8 @@
+import avatarRepository from "../models/avatar.js";
+
 class AvatarService {
-  getFilePath = (file) => {
-    return file.path();
+  findAll = async () => {
+    return avatarRepository.find();
   };
 }
 
