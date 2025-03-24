@@ -30,5 +30,5 @@ const seedAvatars = async () => {
 };
 
 seedAvatars().then(() => {
-  console.log("Avatars succefully added to database");
+  console.log("Avatars successfully added to database");
 });

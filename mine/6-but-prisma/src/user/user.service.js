@@ -38,11 +38,14 @@ class UserService {
       },
     });
 
-    return users.map((user) => ({
-      ...user,
-      avatarPath: user.avatar?.path || null,
-      avatar: undefined,
-    }));
+    return users.map((user) => {
+      return {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        avatarPath: user.avatar?.path,
+      };
+    });
   };
 
   findOne = async (idOrEmail) => {

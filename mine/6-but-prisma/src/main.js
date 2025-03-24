@@ -12,6 +12,7 @@ async function main() {
   app.use(express.json());
   app.use("/api", userRoutes);
   app.use("/api", avatarRoutes);
+  app.use("/uploads", express.static("uploads"));
   app.use(ErrorMiddleware);
 
   app.listen(port, () => {

@@ -1,5 +1,7 @@
 const imageRepository = require("../models/image.js");
+const userRepository = require("../models/user.js");
 const { uploadToCloudinary } = require("../helpers/cloudinary.helper.js");
+const cloudinary = require("../config/cloudinary");
 
 class Image {
   uploadImage = async (req, res, next) => {
@@ -36,6 +38,27 @@ class Image {
 
       if (images) {
         return res.status(200).json(images);
+      }
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  deleteImage = async (req, res, next) => {
+    try {
+      const imageId = req.params.id;
+      const userId = req.userInfo.userId;
+
+      const image = await imageRepository.findById(imageId);
+
+      if (!image) {
+        return res.status(401).json({ message: "Invalid Image" });
+      }
+
+      const isValidUserDeleting = image.uploadedBy.toString() === userId;
+
+      if (!isValidUserDeleting) {
+        return res.status(403).json({ message: "Access denied" });
       }
     } catch (e) {
       next(e);

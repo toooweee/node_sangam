@@ -5,7 +5,7 @@ const authRouter = require("./routes/auth.js");
 const homeRouter = require("./routes/home.js");
 const adminRouter = require("./routes/admin.js");
 const uploadRouter = require("./routes/image.js");
-const errorHandler = require("./utils/error.handler.js");
+const errorMiddleware = require("./middleware/error.middleware");
 
 async function main() {
   const app = express();
@@ -19,7 +19,7 @@ async function main() {
   app.use("/api/home", homeRouter);
   app.use("/api/admin", adminRouter);
   app.use("/api", uploadRouter);
-  app.use(errorHandler);
+  app.use(errorMiddleware);
 
   await app.listen(port);
   console.log(`Server is listening at http://localhost:${port}`);

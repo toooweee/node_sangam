@@ -9,6 +9,16 @@ class AvatarController {
       next(e);
     }
   };
+
+  uploadAvatar = (req, res, next) => {
+    try {
+      console.log(req.file);
+      const avatar = avatarService.create(req.file);
+      return res.status(201).json(avatar);
+    } catch (e) {
+      next(e);
+    }
+  };
 }
 
 export default new AvatarController();
