@@ -34,10 +34,29 @@ class Image {
 
   fetchImages = async (req, res, next) => {
     try {
-      const images = await imageRepository.find({});
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 5;
+      const skip = (page - 1) * limit;
+
+      const sortBy = req.query.sortBy || "createdAt";
+      const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
+      const totalImages = await imageRepository.countDocuments();
+      const totalPages = Math.ceil(totalImages / limit);
+      const sortObject = {};
+      sortObject[sortBy] = sortOrder;
+      const images = await imageRepository
+        .find()
+        .sort(sortObject)
+        .skip(skip)
+        .limit(limit);
 
       if (images) {
-        return res.status(200).json(images);
+        return res.status(200).json({
+          currentPage: page,
+          totalPages: totalPages,
+          totalImages: totalImages,
+          data: images,
+        });
       }
     } catch (e) {
       next(e);
