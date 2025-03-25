@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch main.js"
+    "dev": "node --watch main.js",
+    "seed": "node seed/product.seed.js"
   },
   "keywords": [],
   "author": "",
