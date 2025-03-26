@@ -1,5 +1,4 @@
 import ProductService from "../services/product.service.js";
-import Product from "../models/product.js";
 
 class ProductController {
   getAllProducts = async (req, res, next) => {
